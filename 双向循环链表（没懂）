@@ -1,0 +1,67 @@
+//双循环链表含有两个指针
+
+
+
+
+
+#include<cstdio>
+#include<iostream>
+#include<string>
+#include<algorithm>
+#include<cstring>
+#include<cmath>
+#include <set>
+using namespace std;
+typedef long long ll;
+typedef struct tagNode
+{
+	double data;
+	struct tagNode* next, * pre;
+}Node, * LinkList;
+
+void InitList(LinkList* L)
+{
+	*L = (LinkList)malloc(sizeof(Node));
+	(*L)->next = (*L)->pre = *L;//pre前驱地址，next后继地址
+}
+
+void CreateLink(LinkList L)
+{
+	double sum = 0;
+	int cnt = 0;
+	LinkList p = L, q;
+	while (1)
+	{
+		q = (LinkList)malloc(sizeof(Node));
+		cin >> q->data;
+		if (q->data < 0) break;
+		sum += q->data;
+		p->next = q;
+		q->pre = p;
+		q->next = L;//尾插法
+		L->pre = q;
+		p = q;
+		cnt++;
+	}
+	sum /= cnt * 1.00;
+	printf("%.2lf ", sum);
+}
+
+void TraverseList(LinkList L)
+{
+	LinkList p = L->next;
+	while (p !=L)
+	{
+		printf("%.2lf ", p->data);
+		p = p->next;
+	}
+}
+
+int main()
+{
+	LinkList L;
+	InitList(&L);
+	CreateLink(L);
+	TraverseList(L);
+	return 0;
+}
