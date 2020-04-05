@@ -1,0 +1,60 @@
+#include<cstdio>
+#include<iostream>
+#include<string>
+#include<algorithm>
+#include<cstring>
+#include<cmath>
+#include <set>
+using namespace std;
+typedef long long ll;
+typedef struct node{
+	char data;
+	struct node* next;
+}node;
+node *head=NULL;
+node *p,*c;
+node*create()//创建链表
+{
+	char a[1000];   
+	cin>>a;
+	int l=strlen(a);
+	for(int i=0;i<l;++i)
+	{
+		///if(a=='\r') break;
+		c=(node*)malloc(sizeof(node));
+		if(head==NULL)
+			head=c;
+		else
+			p->next=c;
+		c->next=NULL;
+		c->data=a[i];
+		p=c;
+	}
+	return head;
+}
+void Print(node*L)//打印链表
+{
+	c=L;
+	while(c!=NULL)
+	{
+		printf("%c ",c->data);
+		c=c->next;
+	}
+}
+void Rea(node*L)//释放空间
+{
+	c=L;
+	while(c!=NULL)
+	{
+		p=c->next;
+		free(c);
+		c=p;
+	}
+}
+int main()
+{
+	create();
+	Print(head);
+	Rea(head);
+	return 0;
+}
