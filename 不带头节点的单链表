@@ -1,3 +1,8 @@
+//头指针和头结点的区别
+//头指针含有数据
+//头节点只储存了第一个数据的地址
+
+
 #include<cstdio>
 #include<iostream>
 #include<string>
@@ -11,8 +16,8 @@ typedef struct node{
 	char data;
 	struct node* next;
 }node;
-node *head=NULL;
-node *p,*c;
+node *head=NULL;//头指针
+node *p,*c;//c为尾指针
 node*create()//创建链表
 {
 	char a[1000];   
@@ -20,10 +25,9 @@ node*create()//创建链表
 	int l=strlen(a);
 	for(int i=0;i<l;++i)
 	{
-		///if(a=='\r') break;
 		c=(node*)malloc(sizeof(node));
 		if(head==NULL)
-			head=c;
+			head=c;//head.data中有数据，所以head是头指针
 		else
 			p->next=c;
 		c->next=NULL;
