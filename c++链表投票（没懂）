@@ -1,0 +1,94 @@
+//【问题描述】用链表实现对候选人的得票进行统计。函数Statistic的输入参数：head指向链首，name存放候选人的姓名。该函数的功能为：若在链表的结点上找到name，则将姓名为name的结点上得得票数加1；否则新建一个结点，初始化其姓名和的票数，并将新结点插入链尾。最后返回链表的首指针。
+//【输入形式】依次输入候选人姓名，姓名之间以空格为间隔符。输入0表示结束输入。
+//【输出形式】姓名：票数
+//【样例输入】qxd we e r qxd e e 0
+//【样例输出】
+qxd:2
+we:1
+e:3
+r:1
+
+#include<iostream>
+#include<stdio.h>
+#include<string.h>
+using namespace std;
+struct Node
+{
+
+char name[12];
+int count;
+Node *next;
+};
+Node *Statistic(Node *head, char *name)  // 这里返回头指针，参数也是头指针
+{
+
+Node *p1 = head;
+Node *p2=head;
+
+if (head == 0)
+{
+    head = new Node;
+    strcpy(head->name, name);
+    head->count = 1;
+    head->next = 0;
+}
+else
+{
+    while (p1)
+    {
+        if (strcmp(p1->name, name) == 0)
+        {
+            p1->count++;
+            break;
+        }
+        else
+        {
+            p2 = p1;
+            p1 = p1->next;
+        }
+    }
+    if (p1 == NULL)    // 这里你少了一个等号
+    {
+        p1 = new Node;
+        strcpy(p1->name, name);
+        p1->count = 1;
+        p1->next = 0;
+        p2->next = p1;
+    }
+}
+return head;
+}
+void List(Node *head)
+{
+
+while (head)
+{
+    printf("%s:%d\n", head->name, head->count);
+    head = head->next;
+}
+}
+void Free(Node *head)
+{
+
+Node *p;
+while (head) {
+    p = head;
+    head = head->next;
+    delete p;
+}
+}
+int  main()
+{
+
+Node *head = 0;
+char name[12];
+scanf("%s", name);        // 数组名本来就是首地址，不需要再加&符号
+while (strcmp(name, "0") != 0)
+{
+    head = Statistic(head, name);
+    scanf("%s", name);
+}
+List(head);
+Free(head);
+return 0;
+}
