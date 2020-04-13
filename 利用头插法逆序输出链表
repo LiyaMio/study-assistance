@@ -1,0 +1,46 @@
+#include<stdio.h>
+#include<stdlib.h>
+#define L sizeof(node) 
+struct node {
+	char data;
+	struct node* next;
+};
+node* p, * c;
+void creat()
+{
+	p = NULL;
+	while (1)
+	{
+		c = (node*)malloc(L);
+		scanf("%c", &(c->data));
+		c->next = p;
+		if (c->data == '#')
+			break;
+		p = c;
+	}
+}
+void print()
+{
+	p = c->next;//#也进入了链表并且是第一个
+	while (p != NULL)
+	{
+		printf("%c", p->data);
+		p = p->next;
+	}
+}
+void r()
+{
+	while (c != NULL)
+	{
+		p = c->next;
+		free(c);
+		c = p;
+	}
+}
+int main()
+{
+	creat();
+	print();
+	r();
+	return 0;
+}
