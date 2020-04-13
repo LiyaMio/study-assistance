@@ -5,7 +5,7 @@ struct node {
 	char data;
 	struct node* next;
 };
-node* p, * c;
+node* p, * c;//*c为头节点
 void creat()
 {
 	p = NULL;
