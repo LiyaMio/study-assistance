@@ -1,0 +1,194 @@
+//单向循环链表建立
+node*create(int n)
+{
+	node*head,*p,*q;
+	int i;
+	p=new node;
+	head=p;
+	p->data=1;
+	p->next=NULL;
+	for(i=2;i<=n;++i)
+	{
+		q=new node;
+		q->data=i;
+		p->next=q;
+		p=q;
+	}
+	p->next=head;
+	return head;
+}
+
+//利用单向循环链表解决约瑟夫环问题
+void js(node*head,int m)
+{
+	if(m<=3)
+		cout<<m<<" "<<"error";
+	else
+	{
+		node*p=head,*tmp;
+		tmp=new node;
+		tmp->next=NULL;
+		while(p!=p->next)
+		{
+			for(int i=1;i<3;++i)
+			{
+				tmp=p;
+				p=p->next;
+			}
+			tmp->next=p->next;
+			delete p;
+			p=tmp->next;
+		}
+		cout<<p->data<<endl;
+		delete p;
+	}
+}
+
+//单向链表的就地逆置
+node*reverse(node*head)
+{
+	node*newHead=NULL;
+	node*tmp=NULL;
+	while(head)
+	{
+		tmp=new node;
+		tmp->data=head->data;
+		tmp->next=newHead;
+		newHead=tmp;
+		head=head->next;
+	}
+	return newHead;
+}
+
+//寻找并删除第一次出现的最小节点
+void show(node*head,int n)
+{
+	if(n==1)
+		printf("-1");//删除后为空链表输出-1
+	else
+	{
+	int tmp=head->data;
+	node*p=head;
+	node*q=head;
+	while(head)
+	{
+		if(tmp>head->data)
+			tmp=head->data;
+		head=head->next;
+	}
+	
+	int f=0;
+	while(p)
+	{
+		q=p->next;
+		if(f==0&&p->data==tmp)
+		{
+			f=1;
+			free(p);
+		}
+		else
+			printf("%d ",p->data);
+		p=q;
+	}
+	}
+}
+
+//删除链表中的相同结点
+node*del(node*head)
+{
+	node*q=head;
+	node*p=head;
+	while(p)
+	{
+		q=p;
+		while(q->next)
+		{
+			if(p->data==q->next->data)
+			{
+				node*t;
+				t=q->next;
+				q->next=q->next->next;
+				free(t);
+			}
+			else
+				q=q->next;
+		}
+		p=p->next;
+	}
+	return head;
+}
+
+//寻找最大元素放到链表最前
+node* move(node* head)
+{
+	node* a = NULL;
+	node* p = head;
+	node* q = head;
+	while (p ->next!= NULL)
+	{
+		if (p->next->data > q->data)
+		{
+			a = p;
+			q = p->next;
+		}
+		p = p->next;
+	}
+	if (a != NULL)
+	{
+		a->next = q->next;
+		q->next = head;
+		head = q;
+	}
+	return head;
+}
+
+//寻找最大元素放到最后
+node*move(node*head)
+{
+	node*p=head;
+	node*q=head;
+	node*t=NULL;
+	while(p->next!=NULL)
+		{
+			if(p->next->data>q->data)
+			{
+				t=p;
+				q=p->next;
+			}
+			p=p->next;
+		}
+	if(t!=NULL)
+	{
+		t->next=q->next;
+		p->next=q;
+		q->next=NULL;
+	}
+	else//如果最大元素在第一个
+	{
+		q=head;
+		p->next=head;
+		head=head->next;
+		q->next=NULL;
+	}
+	return head;
+}
+
+//删除结点（带头结点）
+void  DeleteLinkList(NODE* head)
+{
+	NODE* p = head;
+	NODE* q = head->next;
+	while (p->next != NULL)
+	{
+		if ((p->next->data >= 'a' && p->next->data <= 'z') || (p->next->data >= 'A' && p->next->data <= 'Z'))
+		{
+			p = p->next;
+		}
+		else
+		{
+			q = p->next;
+			p->next = p->next->next;
+			free(q);
+		}
+	}
+}
