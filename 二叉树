@@ -1,0 +1,64 @@
+typedef struct Node {
+	Node* lChild;
+	Node* rChild;
+	char data;
+}BiTreeNode,*BiTree;
+char s[100000];
+int j = 0;
+void create(BiTree &T)//先序遍历建立二叉树
+{
+	/*char c;
+	c=getchar();*/
+	if (s[j] == ' ')
+	{
+		T = NULL;
+		return;
+	}
+	else 
+	{
+		T = new BiTreeNode;
+		T->data = s[j++];
+		create(T->lChild);
+		create(T->rChild);
+	}
+}
+void preTraverse(BiTree T)//先序遍历
+{
+	if (T)
+	{
+		cout << T->data << " ";
+		preTraverse(T->lChild);
+		preTraverse(T->rChild);
+	}
+}
+void midTraverse(BiTree T) {//中序遍历
+	if (T) {
+		midTraverse(T->lChild);
+		cout << T->data << " ";
+		midTraverse(T->rChild);
+	}
+}
+void postTraverse(BiTree T) {//后序遍历
+	if (T) {
+		postTraverse(T->lChild);
+		postTraverse(T->rChild);
+		cout << T->data << " ";
+	}
+}
+void floorTraverse(BiTree T)//层序遍历数组实现
+{
+	BiTree tmp[100] = { 0 };
+	int in = 0;
+	int out = 0;
+	tmp[in++] = T;
+	while (in > out)
+	{
+		if (tmp[out])
+		{
+			cout << tmp[out]->data << " ";
+			tmp[in++] = tmp[out]->lChild;
+			tmp[in++] = tmp[out]->rChild;
+		}
+		out++;
+	}
+}
