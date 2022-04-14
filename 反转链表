@@ -28,4 +28,18 @@ public:
         }
         return ret;
     }
-};
+    头插法反转
+    ListNode* reverse(ListNode* head)
+{
+    if (!head) return head;
+    ListNode* ans = NULL;
+    while (head)
+    {
+        ListNode* tmp = new ListNode;
+        tmp->val = head->val;
+        tmp->next = ans;
+        ans = tmp;
+        head = head->next;
+    }
+    return ans;
+}
