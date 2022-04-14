@@ -192,3 +192,14 @@ void  DeleteLinkList(NODE* head)
 		}
 	}
 }
+快慢指针完成链表对半切割
+ListNode* cut(ListNode* head) {
+    ListNode* slow = head;
+    ListNode* fast = head;
+    while (fast->next && fast->next->next)
+    {
+        fast = fast->next->next;
+        slow = slow->next;
+    }
+    return slow->next;
+}
