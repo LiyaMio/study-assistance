@@ -62,3 +62,70 @@ void floorTraverse(BiTree T)//层序遍历数组实现
 		out++;
 	}
 }
+//二叉树三种非递归遍历
+ vector<int> preorderTraversal(TreeNode* root) {
+       vector<int> v;
+       stack<TreeNode*> s;
+       while(!s.empty()||root!=NULL)
+       {
+           while(root!=NULL)
+           {
+           v.push_back(root->val);
+           s.push(root);
+           
+        //    return v;
+           root=root->left;
+           }
+           root=s.top();
+           s.pop();
+           root=root->right;
+       }
+        return v;
+}
+ vector<int> inorderTraversal(TreeNode* root) {
+        vector<int> ans;
+        stack<TreeNode*> s;
+        while(root!=nullptr||!s.empty())
+        {   
+            while(root!=nullptr)
+            {
+                s.push(root);
+                root=root->left;
+            }
+            root=s.top();
+            ans.push_back(root->val);
+            s.pop();
+            root=root->right;
+        }
+        return ans;
+    
+    }
+ vector<int> postorderTraversal(TreeNode* root) {
+        vector<int> ans;
+        stack<TreeNode*> s;
+        TreeNode *tmp;
+        while(root!=nullptr||!s.empty())
+        {
+            while(root!=nullptr)
+            {
+                s.push(root);
+                root=root->left;
+            }
+            root=s.top();
+            s.pop();
+            if(root->right==nullptr||root->right==tmp)
+            {
+                ans.push_back(root->val);
+                tmp=root;
+                root=nullptr;
+            }
+            else
+            {
+                s.push(root);
+                root=root->right;
+            }
+
+
+        }
+        return ans;
+    }
