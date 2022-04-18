@@ -1,0 +1,28 @@
+struct Tire {
+	bool isend;
+	Tire* next[26];
+};
+class T {
+	void insert(string word)
+	{
+		Tire* node = new Tire;
+		for (char c : word)
+		{
+			if (node->next[c - 'a'] == NULL)
+			{
+				node->next[c - 'a'] = new Tire();
+			}
+			node = node->next[c - 'a'];
+		}
+		node->isend = true;
+	}
+	bool search(string word,Tire*node)
+	{
+		for (char c : word)
+		{
+			node = node->next[c - 'a'];
+			if (node == NULL)  return false;
+		}
+		return node->isend;
+	}
+};
