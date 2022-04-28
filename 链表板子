@@ -203,3 +203,25 @@ ListNode* cut(ListNode* head) {
     }
     return slow->next;
 }
+//找环入口
+ ListNode *detectCycle(ListNode *head) {
+        if(head==NULL||head->next==NULL) return NULL;
+        ListNode*slow=head;
+        ListNode*fast=head;
+        while(fast!=NULL)
+        {
+            if(fast==NULL||fast->next==NULL) return NULL;
+            slow=slow->next;
+            fast=fast->next->next;
+           if(fast==slow)
+           {
+               ListNode*ptr=head;
+               while(ptr!=slow){
+                   ptr=ptr->next;
+                   slow=slow->next;
+               }
+               return ptr;
+           }
+        }
+        return NULL;
+    }
